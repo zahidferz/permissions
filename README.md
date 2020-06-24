@@ -1,6 +1,5 @@
 [![Build Status](https://dev.azure.com/eleva-inc/gx-boa-ms-permissions/_apis/build/status/gx-boa-ms-permissions?branchName=develop)](https://dev.azure.com/eleva-inc/gx-boa-ms-permissions/_build/latest?definitionId=34&branchName=develop) 
 
-
 # gx-boa-ms-permissions
 
 Permissions API for Gestionix Platform
