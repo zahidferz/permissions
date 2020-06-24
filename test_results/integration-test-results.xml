@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="0" time="8.081">
+  <testsuite name="Integration Test: COSMOS connection" errors="0" failures="0" skipped="0" timestamp="2020-06-24T15:21:05" time="6.992" tests="1">
+    <testcase classname="Integration Test: COSMOS connection (testFindProfiles) Find profiles for: &quot;accountant&quot;, &quot;administrator&quot;, &quot;cashier&quot;, &quot;operator&quot;, &quot;restricted&quot;" name="Integration Test: COSMOS connection (testFindProfiles) Find profiles for: &quot;accountant&quot;, &quot;administrator&quot;, &quot;cashier&quot;, &quot;operator&quot;, &quot;restricted&quot;" time="3.387">
+    </testcase>
+  </testsuite>
+  <testsuite name="Integration Test: COSMOS connection" errors="0" failures="0" skipped="0" timestamp="2020-06-24T15:21:12" time="0.686" tests="1">
+    <testcase classname="Integration Test: COSMOS connection testCosmosConnection" name="Integration Test: COSMOS connection testCosmosConnection" time="0.548">
+    </testcase>
+  </testsuite>
+  <testsuite name="Integration Test: Process Env are not Empty" errors="0" failures="0" skipped="0" timestamp="2020-06-24T15:21:13" time="0.231" tests="1">
+    <testcase classname="Integration Test: Process Env are not Empty Test Process Env are not empty?" name="Integration Test: Process Env are not Empty Test Process Env are not empty?" time="0.136">
+    </testcase>
+  </testsuite>
+</testsuites>

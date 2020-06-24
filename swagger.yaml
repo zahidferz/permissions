@@ -1,0 +1,585 @@
+swagger: '2.0'
+info:
+  description: |
+    Servicio para asignar y consultar los permisos para el proyecto boa
+  version: 1.0.0
+  title: Swagger Permissions
+host: gx-boa-ms-permissions-test.azurewebsites.net
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /set_user_profile:
+    post:
+      description: 'Este método se utiliza para asignar un perfil a un usuario para una compañía o sucursal'
+      summary: POST/set_user_profile
+      tags:
+        - Misc
+      operationId: SetUserProfilePost
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: 'Bearer {token}'
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: 'application/json'
+        - name: AppId
+          in: header
+          required: true
+          type: string
+          description: 'Id de la aplicación(Oauth)'
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/setUserProfileRequest'
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/setUserProfileResponse'
+        400:
+          description: 'Bad request'
+        401:
+          description: 'Unauthorized'
+  /permissions:
+    post:
+      description: 'Este método se utiliza para consultar los permisos que tiene un usuario segun su perfil o permisos'
+      summary: POST/permissions
+      tags:
+        - Misc
+      operationId: GetPermissionsPost
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: 'Bearer {token}'
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: 'application/json'
+        - name: AppId
+          in: header
+          required: true
+          type: string
+          description: 'Id de la aplicación(Oauth)'
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/getPermissionsRequest'
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/getPermissionsResponse'
+        400:
+          description: 'Bad request'
+        401:
+          description: 'Unauthorized'
+    patch:
+      description: 'Este método se utiliza para consultar los permisos que tiene un perfil'
+      summary: POST/profile
+      tags:
+        - Misc
+      operationId: PatchPermissionsPost
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: 'Bearer {token}'
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: 'application/json'
+        - name: AppId
+          in: header
+          required: true
+          type: string
+          description: 'Id de la aplicación(Oauth)'
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/updatePermissionsRequest'
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/updatePermissionsResponse'
+        400:
+          description: 'Bad request'
+        401:
+          description: 'Unauthorized'
+    delete:
+      description: 'Este método se utiliza para eliminar el perfil o permisos del usuario'
+      summary: DELETE/permissions
+      tags:
+        - Misc
+      operationId: DeletePermissions
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: 'Bearer {token}'
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: 'application/json'
+        - name: AppId
+          in: header
+          required: true
+          type: string
+          description: 'Id de la aplicación(Oauth)'
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/deletePermissionsRequest'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad request'
+        401:
+          description: 'Unauthorized'
+  /profile:
+    post:
+      description: 'Este método se utiliza para consultar los permisos que tiene un perfil'
+      summary: POST/profile
+      tags:
+        - Misc
+      operationId: GetPermissionsByProfilePost
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: 'Bearer {token}'
+          type: string
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: 'application/json'
+        - name: AppId
+          in: header
+          required: true
+          type: string
+          description: 'Id de la aplicación(Oauth)'
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/getProfileRequest'
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/getProfileResponse'
+        400:
+          description: 'Bad request'
+        401:
+          description: 'Unauthorized'
+definitions:
+  setUserProfileRequest:
+    title: setUserProfileRequest
+    example:
+      userNumber: 511
+      companyNumber: 191
+      branchNumber: 1
+      profile: 'administrator'
+    type: object
+    properties:
+      userNumber:
+        type: number
+        description: Número de usuario que tendrá el perfil
+      companyNumber:
+        type: number
+        description: Comáñía dentro de la cual el usuario tendrá el perfil
+      branchNumber:
+        type: number
+        description: Sucursal dentro de la cual el usuario tendrá el perfil
+      profile:
+        type: string
+        description: Tipo de perfil que tendrá el usuario
+        enum:
+          ['administrator', 'operator', 'cashier', 'accountant', 'restricted']
+    required:
+      - userNumber
+      - companyNumber
+      - profile
+  setUserProfileResponse:
+    title: setUserProfileResponse
+    example:
+      userNumber: 511
+      companyNumber: 191
+      branchNumber: 1
+      profile: 'administrator'
+      userRequest: 512
+      id: 'be2c9c56-74d9-3659-7f63-f7b90aaeb7c5'
+    type: object
+    properties:
+      userNumber:
+        type: number
+        description: Número de usuario que tendrá el perfil
+      companyNumber:
+        type: number
+        description: Comáñía dentro de la cual el usuario tendrá el perfil
+      branchNumber:
+        type: number
+        description: Sucursal dentro de la cual el usuario tendrá el perfil
+      profile:
+        type: string
+        description: Tipo de perfil que tendrá el usuario
+        enum:
+          ['administrator', 'operator', 'cashier', 'accountant', 'restricted']
+      userRequest:
+        type: number
+        description: Usuario que asigna el perfil
+      id:
+        type: string
+        description: GUID del documento de COSMOSDB que guarda el perfil del usuario
+    required:
+      - userNumber
+      - companyNumber
+      - profile
+      - userRequest
+      - id
+  getPermissionsRequest:
+    title: getPermissionsRequest
+    example:
+      userNumber: 511
+      companyNumber: 191
+      branchNumber: 1
+    type: object
+    properties:
+      userNumber:
+        type: number
+        description: Número de usuario del que se requiere consultar sus permisos
+      companyNumber:
+        type: number
+        description: Comáñía dentro de la cual el usuario tendrá el perfil o permisos
+      branchNumber:
+        type: number
+        description: Sucursal dentro de la cual el usuario tendrá el perfil o permisos
+    required:
+      - userNumber
+      - companyNumber
+  getPermissionsResponse:
+    title: getPermissionsResponse
+    example:
+      id: 'be2c9c56-74d9-3659-7f63-f7b90aaeb7c5'
+      profile: 'administrator'
+      permissions:
+        sales.clients.readAll: true
+        sales.clients.readOwner: true
+        sales.clients.create: true
+        sales.clients.update: true
+        sales.clients.delete: true
+        sales.clients.deactivate: true
+        sales.clients.reactivate: true
+        sales.clients.export: true
+        sales.clients.search: true
+        sales.clients.data.statement.read: true
+        sales.clients.data.statement.export: true
+        sales.clients.data.accountsReceivable: true
+        sales.clients.data.updateBankAccount: true
+        sales.clients.bulkActions.bulkImportClients: true
+        sales.clients.bulkActions.bulkDeleteClients: true
+        bankAccounts.accounts.read: true
+        bankAccounts.accounts.create: true
+        bankAccounts.accounts.update: true
+        bankAccounts.accounts.activate: true
+        bankAccounts.accounts.deactivate: true
+        bankAccounts.accounts.delete: true
+        bankAccounts.accounts.export: true
+        bankAccounts.accounts.search: true
+        bankAccounts.accounts.data.accountBalance: true
+        bankAccounts.accountMovements.data.readAccountBalance: true
+        bankAccounts.accountMovements.data.readAccountMovements: true
+        bankAccounts.accountMovements.cancelMovement: true
+        bankAccounts.accountMovements.deleteMovement: true
+        bankAccounts.accountMovements.process.createAdjustMovement: true
+        bankAccounts.accountMovements.process.createDepositMovement: true
+        bankAccounts.accountMovements.process.createWithdrawalMovement: true
+        bankAccounts.accountMovements.exportMovements: true
+        bankAccounts.accountMovements.time.onlyShowLastDays: 10
+        bankAccounts.bankConnections.process.connectToBank: true
+        bankAccounts.bankConnections.process.disconnectFromBank: true
+        bankAccounts.bankConnections.read: true
+        bankAccounts.bankConnections.update: true
+        bankAccounts.bankConnections.time.onlyShowLastDays: 10
+        config.users.readAll: true
+        config.users.invite: true
+        config.users.suspend: true
+        config.users.reactivate: true
+        config.users.delete: true
+        config.users.defineBranchesPermissions: true
+        config.users.defineCompanyPermissions: true
+        config.users.GlobalPermissions: true
+        config.branches.read: true
+        config.branches.create: true
+        config.branches.update: true
+        config.branches.deactivate: true
+        config.branches.reactivate: true
+        config.branches.delete: true
+        config.inventory.config: true
+        config.pos.config: true
+        config.income.config: true
+        config.expenses.config: true
+        config.payroll.config: true
+        config.bankAccouns.config: true
+        config.company.update.generalInfo: true
+        config.company.update.taxInfo: true
+        config.company.process.addCertificate: true
+        config.company.process.changeSelectedCertificate: true
+        config.company.process.removeCertificate: true
+        config.company.suspend: true
+        config.company.delete: true
+        integrations.activatePersonal: true
+        integrations.activateOnBehalf: true
+        integrations.deactivateOnBehalf: true
+    type: object
+    properties:
+      id:
+        type: string
+        description: GUID del documento de COSMOSDB que guarda el perfil del usuario
+      profile:
+        type: string
+        description: Tipo de perfil que tendrá el usuario
+        enum: ['administrator', 'operator', 'cashier', 'accountant']
+      permissions:
+        type: object
+        description: Conjunto de permisos con los que cuenta el usuario
+    required:
+      - id
+      - profile
+      - permissions
+  getProfileRequest:
+    title: getProfileRequest
+    example:
+      profile: 'administrator'
+    type: object
+    properties:
+      profile:
+        type: string
+        description: Tipo de perfil que tendrá el usuario
+        enum:
+          ['administrator', 'operator', 'cashier', 'accountant', 'restricted']
+    required:
+      - profile
+  getProfileResponse:
+    title: getPermissionsResponse
+    example:
+      id: 'be2c9c56-74d9-3659-7f63-f7b90aaeb7c5'
+      profile: 'administrator'
+      permissions:
+        sales.clients.readAll: true
+        sales.clients.readOwner: true
+        sales.clients.create: true
+        sales.clients.update: true
+        sales.clients.delete: true
+        sales.clients.deactivate: true
+        sales.clients.reactivate: true
+        sales.clients.export: true
+        sales.clients.search: true
+        sales.clients.data.statement.read: true
+        sales.clients.data.statement.export: true
+        sales.clients.data.accountsReceivable: true
+        sales.clients.data.updateBankAccount: true
+        sales.clients.bulkActions.bulkImportClients: true
+        sales.clients.bulkActions.bulkDeleteClients: true
+        bankAccounts.accounts.read: true
+        bankAccounts.accounts.create: true
+        bankAccounts.accounts.update: true
+        bankAccounts.accounts.activate: true
+        bankAccounts.accounts.deactivate: true
+        bankAccounts.accounts.delete: true
+        bankAccounts.accounts.export: true
+        bankAccounts.accounts.search: true
+        bankAccounts.accounts.data.accountBalance: true
+        bankAccounts.accountMovements.data.readAccountBalance: true
+        bankAccounts.accountMovements.data.readAccountMovements: true
+        bankAccounts.accountMovements.cancelMovement: true
+        bankAccounts.accountMovements.deleteMovement: true
+        bankAccounts.accountMovements.process.createAdjustMovement: true
+        bankAccounts.accountMovements.process.createDepositMovement: true
+        bankAccounts.accountMovements.process.createWithdrawalMovement: true
+        bankAccounts.accountMovements.exportMovements: true
+        bankAccounts.accountMovements.time.onlyShowLastDays: 10
+        bankAccounts.bankConnections.process.connectToBank: true
+        bankAccounts.bankConnections.process.disconnectFromBank: true
+        bankAccounts.bankConnections.read: true
+        bankAccounts.bankConnections.update: true
+        bankAccounts.bankConnections.time.onlyShowLastDays: 10
+        config.users.readAll: true
+        config.users.invite: true
+        config.users.suspend: true
+        config.users.reactivate: true
+        config.users.delete: true
+        config.users.defineBranchesPermissions: true
+        config.users.defineCompanyPermissions: true
+        config.users.GlobalPermissions: true
+        config.branches.read: true
+        config.branches.create: true
+        config.branches.update: true
+        config.branches.deactivate: true
+        config.branches.reactivate: true
+        config.branches.delete: true
+        config.inventory.config: true
+        config.pos.config: true
+        config.income.config: true
+        config.expenses.config: true
+        config.payroll.config: true
+        config.bankAccouns.config: true
+        config.company.update.generalInfo: true
+        config.company.update.taxInfo: true
+        config.company.process.addCertificate: true
+        config.company.process.changeSelectedCertificate: true
+        config.company.process.removeCertificate: true
+        config.company.suspend: true
+        config.company.delete: true
+        integrations.activatePersonal: true
+        integrations.activateOnBehalf: true
+        integrations.deactivateOnBehalf: true
+    type: object
+    properties:
+      id:
+        type: string
+        description: GUID del documento de COSMOSDB que guarda el perfil del usuario
+      profile:
+        type: string
+        description: Tipo de perfil que tendrá el usuario
+        enum:
+          ['administrator', 'operator', 'cashier', 'accountant', 'restricted']
+      permissions:
+        type: object
+        description: Conjunto de permisos con los que cuenta el usuario
+    required:
+      - id
+      - profile
+      - permissions
+  updatePermissionsRequest:
+    title: updatePermissionsRequest
+    example:
+      userNumber: 511
+      companyNumber: 191
+      branchNumber: 1
+      permissions:
+        sales.clients.export: true
+        sales.clients.search: true
+        sales.clients.data.statement.read: true
+        sales.clients.data.statement.export: true
+    type: object
+    properties:
+      userNumber:
+        type: number
+        description: Número de usuario que tendrá el perfil
+      companyNumber:
+        type: number
+        description: Comáñía dentro de la cual el usuario tendrá el perfil
+      branchNumber:
+        type: number
+        description: Sucursal dentro de la cual el usuario tendrá el perfil
+      permissions:
+        type: object
+        description: Conjunto de permisos que se asignarán
+    required:
+      - userNumber
+      - companyNumber
+      - permissions
+  updatePermissionsResponse:
+    title: updatePermissionsResponse
+    example:
+      id: 'be2c9c56-74d9-3659-7f63-f7b90aaeb7c5'
+      profile: 'custom'
+      userNumber: 511
+      companyNumber: 191
+      branchNumber: 1
+      permissions:
+        sales.clients.export: true
+        sales.clients.search: true
+        sales.clients.data.statement.read: true
+        sales.clients.data.statement.export: true
+    type: object
+    properties:
+      id:
+        type: string
+        description: GUID del documento de COSMOSDB que guarda el perfil del usuario
+      profile:
+        type: string
+        description: Tipo de perfil que tendrá el usuario
+        enum:
+          ['administrator', 'operator', 'cashier', 'accountant', 'restricted']
+      userNumber:
+        type: number
+        description: Número de usuario
+      companyNumber:
+        type: number
+        description: Número de compañía
+      branchNumber:
+        type: number
+        description: Número de sucursal
+      permissions:
+        type: object
+        description: Conjunto de permisos con los que cuenta el usuario
+    required:
+      - id
+      - profile
+      - userNumber
+      - companyNumber
+      - permissions
+  deletePermissionsRequest:
+    title: deletePermissionsRequest
+    example:
+      userNumber: 511
+      companyNumber: 191
+      branchNumber: 1
+    type: object
+    properties:
+      userNumber:
+        type: number
+        description: Número de usuario que tendrá el perfil
+      companyNumber:
+        type: number
+        description: Comáñía dentro de la cual el usuario tendrá el perfil
+      branchNumber:
+        type: number
+        description: Sucursal dentro de la cual el usuario tendrá el perfil
+    required:
+      - userNumber
+      - companyNumber

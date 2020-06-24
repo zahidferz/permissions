@@ -1,0 +1,15 @@
+version: '3'
+services: 
+    boa-ms-permissions:
+      build: .
+      environment: 
+        - PORT=80
+        - NODE_ENV=production
+        - DATABASE_HOST
+        - DATABASE_AUTH_KEY
+        - DATABASE_NAME
+        - CONTAINER_PROFILE_NAME
+        - CONTAINER_PERMISSIONS_NAME
+        - CONTAINER_PERMISSIONS_PROFILE_NAME
+      ports: 
+        - "80:80"

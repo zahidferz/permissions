@@ -1,0 +1,80 @@
+{
+  "name": "gx-boa-back-permissions",
+  "version": "0.0.1",
+  "description": "Manage BOA permissions",
+  "main": "app.js",
+  "scripts": {
+    "migrate-cosmos-db": "node ./migrations/initialize_db.js",
+    "clean": "rm -rf build",
+    "babel-transpile": "babel -d ./build . -s --ignore node_modules",
+    "copy-cosmos-migration-files": "find migrations/ -type f -name '*.json' -exec cp '{}' build/'{}' ';'",
+    "copy-swagger-file": "cp -r swagger.yaml build",
+    "copy-tests-resources": "find tests ! -name '*.js' -type f -exec cp '{}' build/'{}' ';'",
+    "build": "npm run clean && npm run babel-transpile && npm run copy-swagger-file && npm run copy-cosmos-migration-files && npm run copy-tests-resources",
+    "start": "DEBUG=permissions node cluster.js",
+    "dev": "nodemon app.js --exec babel-node",
+    "windowsDebug": "@powershell -Command $env:DEBUG='login,permissions'; nodemon app.js --exec babel-node",
+    "linuxDebug": "export DEBUG=express:*,mssql:tedi,login,permissions && nodemon app.js --exec babel-node",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --runInBand --config ./tests/jest.config.default.json",
+    "unit-tests": "cross-env NODE_ENV=test jest --ci --detectOpenHandles --runInBand --forceExit --config ./tests/jest.config.unit.json",
+    "integration-tests": "cross-env NODE_ENV=test jest --ci --detectOpenHandles --runInBand --forceExit --config ./tests/jest.config.integration.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primitivorm/gx-boa-back-permissions.git"
+  },
+  "keywords": [
+    "boa",
+    "permissions"
+  ],
+  "author": "Primitivo RM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/primitivorm/gx-boa-back-permissions/issues"
+  },
+  "homepage": "https://github.com/primitivorm/gx-boa-back-permissions#readme",
+  "dependencies": {
+    "@azure/cosmos": "^2.1.7",
+    "@babel/polyfill": "^7.7.0",
+    "@sentry/node": "^5.18.0",
+    "applicationinsights": "^1.6.0",
+    "async": "^2.6.3",
+    "axios": "^0.19.2",
+    "cluster": "^0.7.7",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "express-redis-cache": "^1.1.3",
+    "express-unless": "^0.5.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "lodash.merge": "^4.6.2",
+    "mssql": "^6.2.0",
+    "newrelic": "^6.2.0",
+    "node-cache": "^5.1.0",
+    "node-fetch": "^2.6.0",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "swagger-ui-express": "^4.1.2",
+    "winston": "^3.2.1",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@types/jest": "^24.9.0",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "dotenv": "^6.2.0",
+    "jest": "^24.9.0",
+    "jest-chain": "^1.1.2",
+    "jest-junit": "^6.4.0",
+    "nodemon": "^1.19.4"
+  }
+}
