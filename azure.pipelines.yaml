@@ -16,7 +16,7 @@ resources:
     name: gestionix/gx-devops-yamls
     type: github
     endpoint: gx-github
-    ref: master #branch name
+    ref: test #branch name
 
 extends:
   template: Node/NodeCosmos.yaml@gx-devops-yamls
