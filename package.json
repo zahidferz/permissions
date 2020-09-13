@@ -55,7 +55,7 @@
     "mssql": "^6.2.0",
     "newrelic": "^6.2.0",
     "node-cache": "^5.1.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "redis": "^2.8.0",
     "request": "^2.88.0",
     "swagger-ui-express": "^4.1.2",
